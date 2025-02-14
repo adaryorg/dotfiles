@@ -20,7 +20,10 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
-source ~/private/fzf-git.sh/fzf-git.sh
+if [ -f ~/private/fzf-git.sh/fzf-git.sh ]
+then
+    source ~/private/fzf-git.sh/fzf-git.sh
+fi
 # -- End FZF stuff -- 
 
 # -- Previews --
@@ -62,8 +65,14 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 ZSH_THEME=""
 # personal aliases
-source ~/.private/ecdn_bom
-source ~/.private/host_alias
+if [ -f ~/.private/ecdn_bom ]
+then
+    source ~/.private/ecdn_bom
+fi
+if [ -f ~/.private/host_alias ]
+then
+    source ~/.private/host_alias
+fi
 
 #
 alias cat="bat"
@@ -72,5 +81,8 @@ alias cd="z"
 alias vi="nvim"
 alias vim="nvim"
 
-. $HOME/.cargo/env
+if [ -f $HOME/.cargo/env ]
+then
+    . $HOME/.cargo/env
+fi
 
