@@ -1,38 +1,76 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="funky"
 
+eval "$(starship init zsh)"
+eval "$(thefuck --alias)"
+# ---- Zoxide (better cd) ----
+eval "$(zoxide init zsh)"
+
+# -- FZF stuff --
+eval "$(fzf --zsh)"
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+source ~/private/fzf-git.sh/fzf-git.sh
+# -- End FZF stuff -- 
+
+# -- Previews --
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
+# -- End Previews --
+
+
+export EDITOR="nvim"
+export PATH=/opt/homebrew/bin:$PATH
+
+# zsh plugins
 plugins=(
-    git
-    archlinux
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+  git
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  web-search
+  docker
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
+ZSH_THEME=""
+# personal aliases
+source ~/.private/ecdn_bom
+source ~/.private/host_alias
 
-# Check archlinux plugin commands here
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/archlinux
+#
+alias cat="bat"
+alias ls="eza --color=always --long --git --icons=always"
+alias cd="z"
+alias vi="nvim"
+alias vim="nvim"
 
-# Display Pokemon-colorscripts
-# Project page: https://gitlab.com/phoneybadger/pokemon-colorscripts#on-other-distros-and-macos
-#pokemon-colorscripts --no-title -s -r
+. $HOME/.cargo/env
 
-# fastfetch. Will be disabled if above colorscript was chosen to install
-fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
-
-# Set-up icons for files/folders in terminal
-alias ls='eza -a --icons'
-alias ll='eza -al --icons'
-alias lt='eza -a --tree --level=1 --icons'
-
-# Set-up FZF key bindings (CTRL R for fuzzy history finder)
-source <(fzf --zsh)
-
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt appendhistory
