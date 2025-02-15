@@ -1,17 +1,21 @@
+# some nitty gritty zsh stuff
+
+fpath=($HOME/.config/zshrc $fpath)
+
+autoload zsh_src zsh_eval
+
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""
 
-if [[ -f /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-eval "$(starship init zsh)"
-eval "$(thefuck --alias)"
-# ---- Zoxide (better cd) ----
-eval "$(zoxide init zsh)"
+export EDITOR="nvim"
+zsh_eval /opt/homebrew/bin/brew shellenv
+zsh_eval starship init zsh
+zsh_eval thefuck --alias
+zsh_eval zoxide init zsh
 
-# -- FZF stuff --
-eval "$(fzf --zsh)"
+zsh_eval fzf --zsh
 
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -23,18 +27,13 @@ init_fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
-source ~/private/fzf-git.sh/fzf-git.sh
-# -- End FZF stuff -- 
+zsh_src $HOME/private/fzf-git.sh/fzf-git.sh
 
-# -- Previews --
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 
-# Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
 _fzf_comprun() {
   local command=$1
   shift
@@ -46,10 +45,8 @@ _fzf_comprun() {
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
-# -- End Previews --
 
 
-export EDITOR="nvim"
 
 # zsh plugins
 plugins=(
@@ -61,18 +58,17 @@ plugins=(
   kubectl
 )
 
-source $ZSH/oh-my-zsh.sh
-ZSH_THEME=""
 # personal aliases
-source ~/.private/ecdn_bom
-source ~/.private/host_alias
+zsh_src $HOME/.private/ecdn_bom
+zsh_src $HOME/.private/host_alias
 
-#
 alias cat="bat"
 alias ls="eza --color=always --long --git --icons=always"
 alias cd="z"
 alias vi="nvim"
 alias vim="nvim"
 
-. $HOME/.cargo/env
 
+zsh_src $HOME/.cargo/env
+
+zsh_src $ZSH/oh-my-zsh.sh
