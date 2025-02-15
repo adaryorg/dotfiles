@@ -1,0 +1,15 @@
+theme = catppuccin-mocha-custom
+font-family = CaskaydiaCove Nerd Font
+font-family-bold = CaskaydiaCove Bold Nerd Font 
+font-family-italic = CaskaydiaCove Italic Nerd Font 
+font-family-bold-italic = CaskaydiaCove Bold Italic Nerd Font 
+
+font-size = 13
+background-opacity = 0.85
+macos-titlebar-style = tabs
+alpha-blending = native
+cursor-style = bar
+background-blur = true
+maximize = true
+term = xterm
+copy-on-select = clipboard
