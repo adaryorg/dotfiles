@@ -1,3 +1,5 @@
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # some nitty gritty zsh stuff
 
 fpath=($HOME/.config/zshrc $fpath)
@@ -72,3 +74,6 @@ alias vim="nvim"
 zsh_src $HOME/.cargo/env
 
 zsh_src $ZSH/oh-my-zsh.sh
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"

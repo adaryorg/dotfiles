@@ -5,7 +5,7 @@ font-family-italic = CaskaydiaCove Italic Nerd Font
 font-family-bold-italic = CaskaydiaCove Bold Italic Nerd Font 
 
 font-size = 13
-background-opacity = 0.85
+background-opacity = 0.75
 macos-titlebar-style = tabs
 alpha-blending = native
 cursor-style = bar
