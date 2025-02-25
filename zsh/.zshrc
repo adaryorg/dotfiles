@@ -9,15 +9,30 @@ autoload zsh_src zsh_eval
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export ZSH="$HOME/.oh-my-zsh"
+
 ZSH_THEME=""
 
+# zsh pluginsV
+plugins=(
+  git
+  zsh-syntax-highlighting
+  zsh-autosuggestions
+  web-search
+  docker
+  kubectl
+)
+
+source $ZSH/oh-my-zsh.sh
+
 export EDITOR="nvim"
+
 zsh_eval /opt/homebrew/bin/brew shellenv
 zsh_eval starship init zsh
 zsh_eval thefuck --alias
 zsh_eval zoxide init zsh
+zsh_eval atuin init zsh
 
-zsh_eval fzf --zsh
+# FZF setup - TODO move to separate file
 
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -48,21 +63,11 @@ _fzf_comprun() {
   esac
 }
 
-
-
-# zsh plugins
-plugins=(
-  git
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-  web-search
-  docker
-  kubectl
-)
+zsh_eval fzf --zsh
 
 # personal aliases
-zsh_src $HOME/.private/ecdn_bom
-zsh_src $HOME/.private/host_alias
+source $HOME/.private/ecdn_bom
+source $HOME/.private/host_alias
 
 alias cat="bat"
 alias ls="eza --color=always --long --git --icons=always"
@@ -70,10 +75,9 @@ alias cd="z"
 alias vi="nvim"
 alias vim="nvim"
 
+source $HOME/.cargo/env
 
-zsh_src $HOME/.cargo/env
 
-zsh_src $ZSH/oh-my-zsh.sh
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
