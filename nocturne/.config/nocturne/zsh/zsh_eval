@@ -1,0 +1,5 @@
+zsh_eval () {
+  if [[ -f "$(which $1)" ]]; then
+    eval "$($*)"
+  fi
+}

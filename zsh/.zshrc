@@ -74,7 +74,7 @@ alias ls="eza --color=always --long --git --icons=always"
 alias cd="z"
 alias vi="nvim"
 alias vim="nvim"
-
+[[ -f "$(which kitten)" ]] && alias ssh="kitten ssh"
 source $HOME/.cargo/env
 
 
