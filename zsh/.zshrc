@@ -1,8 +1,6 @@
-# Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # some nitty gritty zsh stuff
 
-fpath=($HOME/.config/zshrc $fpath)
+[[ -d "$HOME/.config/zshrc" ]] && fpath=($HOME/.config/zshrc $fpath)
 
 autoload zsh_src zsh_eval
 
@@ -19,7 +17,9 @@ plugins=(
   zsh-autosuggestions
   web-search
   docker
-  kubectl
+  macos
+  thefuck
+  z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -71,13 +71,8 @@ source $HOME/.private/host_alias
 
 alias cat="bat"
 alias ls="eza --color=always --long --git --icons=always"
-alias cd="z"
 alias vi="nvim"
 alias vim="nvim"
-[[ -f "$(which kitten)" ]] && alias ssh="kitten ssh"
+# [[ -f "$(which kitten)" ]] && alias ssh="kitten ssh"
 source $HOME/.cargo/env
 
-
-
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
