@@ -37,7 +37,7 @@ return {
 				"emmet_ls",
 				"prismals",
 				"pyright",
-				"bash-language-server",
+				"bashls",
 			},
 		})
 		mason_tool_installer.setup({
