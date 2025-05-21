@@ -1,6 +1,6 @@
 # some nitty gritty zsh stuff
 
-[[ -d "$HOME/.config/zshrc" ]] && fpath=($HOME/.config/zshrc $fpath)
+[[ -d "$HOME/.config/zshrc" ]] && fpath=($HOME/.config/zshrc $fpath) || echo "zshrc config not found!"
 
 autoload zsh_src zsh_eval
 
