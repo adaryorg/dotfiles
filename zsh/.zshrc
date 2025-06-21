@@ -66,13 +66,13 @@ zsh_eval atuin init zsh
 zsh_eval fzf --zsh
 
 # personal aliases
-source $HOME/.private/ecdn_bom
-source $HOME/.private/host_alias
+zsh_src $HOME/.private/ecdn_bom
+zsh_src $HOME/.private/host_alias
 
 alias cat="bat"
 alias ls="eza --color=always --long --git --icons=always"
 alias vi="nvim"
 alias vim="nvim"
 # [[ -f "$(which kitten)" ]] && alias ssh="kitten ssh"
-source $HOME/.cargo/env
+zsh_src $HOME/.cargo/env
 
