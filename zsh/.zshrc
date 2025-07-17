@@ -76,3 +76,4 @@ alias vim="nvim"
 # [[ -f "$(which kitten)" ]] && alias ssh="kitten ssh"
 zsh_src $HOME/.cargo/env
 
+export GOOGLE_CLOUD_PROJECT="143569286330"
